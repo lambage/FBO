@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/vc2013/x64/Debug
+/vc2013/.vs/FBO/v14
+/vc2013/FBO.VC.db
+/vc2013/FBO.VC.VC.opendb
+/vc2013/FBO.vcxproj.user

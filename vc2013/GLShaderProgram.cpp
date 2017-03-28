@@ -9,34 +9,8 @@
 #include "glload/gl_core.h"
 #endif
 
-namespace maxlife
+namespace
 {
-    struct GLShaderProgram::Impl
-    {
-        GLuint program;
-        std::map<std::string, GLint> uniform_cache;
-
-        GLint GetUniform(const char * name)
-        {
-            GLint retval = -1;
-            auto it = uniform_cache.find(name);
-            if (it == std::end(uniform_cache))
-            {
-                auto location = glGetUniformLocation(program, name);
-                if (location >= 0)
-                {
-                    uniform_cache[name] = location;
-                    retval = location;
-                }
-            }
-            else
-            {
-                retval = it->second;
-            }
-            return retval;
-        }
-    };
-
     struct GLShaderObject
     {
         GLShaderObject(GLenum shader_type, const char * shader_source)
@@ -70,6 +44,35 @@ namespace maxlife
 
     private:
         GLuint m_shader_object;
+    };
+}
+
+namespace maxlife
+{
+    struct GLShaderProgram::Impl
+    {
+        GLuint program;
+        std::map<std::string, GLint> uniform_cache;
+
+        GLint GetUniform(const char * name)
+        {
+            GLint retval = -1;
+            auto it = uniform_cache.find(name);
+            if (it == std::end(uniform_cache))
+            {
+                auto location = glGetUniformLocation(program, name);
+                if (location >= 0)
+                {
+                    uniform_cache[name] = location;
+                    retval = location;
+                }
+            }
+            else
+            {
+                retval = it->second;
+            }
+            return retval;
+        }
     };
 
     GLShaderProgram::GLShaderProgram(const char * vertex_shader_source, const char * fragment_shader_source)
